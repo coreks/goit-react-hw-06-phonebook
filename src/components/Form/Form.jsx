@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import shortid from 'shortid';
 
-import { getItems } from '../../redux/phonebook/contactsSelectors';
+import { getItems } from '../../redux/contacts/contactsSelectors';
 
-import actions from '../../redux/phonebook/contactsActions';
+import actions from '../../redux/contacts/contactsActions';
 
 import s from '../Form/Form.module.css';
 
@@ -26,8 +26,6 @@ function Form() {
   const handleSubmit = e => {
     e.preventDefault();
 
-    console.log(contacts);
-
     const isRepeatName = contacts.find(
       contact => contact.name.toLowerCase() === name.toLowerCase(),
     );
@@ -35,11 +33,11 @@ function Form() {
       alert(`${name} is already in contacts`);
       return [...contacts];
     }
-    dispatch(actions.addContact(name, number));
-    resetInput();
+    dispatch(actions.addContact({ name, number }));
+    resetForm();
   };
 
-  const resetInput = () => {
+  const resetForm = () => {
     setName('');
     setNumber('');
   };
